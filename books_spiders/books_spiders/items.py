@@ -7,6 +7,10 @@ import scrapy
 
 
 class BooksSpidersItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    url = scrapy.Field()
+    title = scrapy.Field()
+    thumbnail = scrapy.Field()
+    description = scrapy.Field()
+    price = scrapy.Field()
+    rate = scrapy.Field()
+    stock = scrapy.Field()
