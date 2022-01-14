@@ -20,8 +20,13 @@ class BookstoscrapeSpider(CrawlSpider):
         restrict_xpaths='//article[@class="product_pod"]//h3'
     )
 
+    pagination_lx = LinkExtractor(
+        restrict_xpaths='//ul[@class="pager"]//li[@class="next"]//a'
+    )
+
     rules = [
         Rule(category_lx),
+        Rule(pagination_lx),
         Rule(product_lx, callback='parse_book')
     ]
 
