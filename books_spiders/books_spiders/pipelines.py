@@ -10,4 +10,6 @@ from itemadapter import ItemAdapter
 
 class BooksSpidersPipeline:
     def process_item(self, item, spider):
+        if item['title']:
+            item['title'] = item['title'].upper()
         return item

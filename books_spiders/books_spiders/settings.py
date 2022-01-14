@@ -19,6 +19,7 @@ NEWSPIDER_MODULE = 'books_spiders.spiders'
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 FEED_EXPORT_ENCODING = 'utf-8'
+LOG_LEVEL = 'INFO'
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -63,9 +64,9 @@ FEED_EXPORT_ENCODING = 'utf-8'
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'books_spiders.pipelines.BooksSpidersPipeline': 300,
-#}
+ITEM_PIPELINES = {
+   'books_spiders.pipelines.BooksSpidersPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
