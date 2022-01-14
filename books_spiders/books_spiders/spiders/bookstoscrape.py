@@ -1,6 +1,6 @@
 import scrapy
-from scrapy.loader import ItemLoader
-from ..items import BooksSpidersItem
+
+from ..loader import BookItemLoader
 
 
 class BookstoscrapeSpider(scrapy.Spider):
@@ -19,7 +19,7 @@ class BookstoscrapeSpider(scrapy.Spider):
                                  callback=self.parse_book)
 
     def parse_book(self, response):
-        loader = ItemLoader(BooksSpidersItem(), response=response)
+        loader = BookItemLoader(response=response)
 
         loader.add_xpath('title', '//*[contains(@class, "product_main")]//h1//text()')
         loader.add_xpath('thumbnail', '//div[@class="carousel-inner"]//div//img//@src')
