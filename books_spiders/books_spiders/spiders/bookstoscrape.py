@@ -1,6 +1,6 @@
 import scrapy
 from scrapy.loader import ItemLoader
-from books_spiders.books_spiders.items import BooksSpidersItem
+from ..items import BooksSpidersItem
 
 
 class BookstoscrapeSpider(scrapy.Spider):
@@ -22,12 +22,16 @@ class BookstoscrapeSpider(scrapy.Spider):
         loader = ItemLoader(BooksSpidersItem(), response=response)
 
         loader.add_xpath('title', '//*[contains(@class, "product_main")]//h1//text()')
-        loader.add_xpath('thumnail', '//div[@class="carousel-inner"]//div//img//@src')
-        loader.add_xpath('description', '//*[contains(@class, "product_main")]//p[contains(@class, "star-rating")]//@class')
-        loader.add_xpath('price', '//*[contains(@class, "product_main")]//p[@class="instock availability"]')
-        rate = 
+        loader.add_xpath('thumbnail', '//div[@class="carousel-inner"]//div//img//@src')
+        loader.add_xpath('description', '//article[@class="product_page"]/p//text()')
+        loader.add_xpath('price', '//*[contains(@class, "product_main")]//p[@class="price_color"]//text()')
+        
+        rate_xpath = '//*[contains(@class, "product_main")]//p[contains(@class, "star-rating")]//@class'
+        loader.add_value('rate', response.xpath(rate_xpath).get().split(' ')[-1])
 
+        stock_xpath = '//*[contains(@class, "product_main")]//p[@class="instock availability"]'
+        loader.add_value('stock', response.xpath(stock_xpath).re_first(r"(\d+)"))
 
-        loader.add_xpath('', '//article[@class="product_page"]/p//text()')
-        loader.add_xpath('', '//*[contains(@class, "product_main")]//p[@class="price_color"]//text()')
+        return loader.load_item()
+        
         
